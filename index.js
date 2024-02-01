@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateLogo = require('./generateLogo.js')
-
+const {Triangle, Circle, Square} = require('./lib/shapes.js');
 
 const prompts = [
     //WHEN I am prompted for text THEN I can enter up to three characters
@@ -36,6 +35,32 @@ function writeToFile(fileName, data) {
     fs.writeFile(fileName, data, (err) =>
     err ? console.error(err) : console.log('Success!')
     );
+}
+
+//function to generate logo
+function generateLogo(answers) {
+    if (answers.shape === 'Circle') {
+        const shape = new Circle();
+        shape.setColor(answers.shapeColor);
+        return `<svg height="200" width="300">
+        ${shape.render()}
+        <text x="33%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="50" fill="${answers.color}">${answers.text}</text>
+        </svg>`;
+    } else if (answers.shape === 'Triangle') {
+        const shape = new Triangle();
+        shape.setColor(answers.shapeColor);
+        return `<svg height="200" width="300">
+        ${shape.render()}
+        <text x="33%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="50" fill="${answers.color}">${answers.text}</text>
+        </svg>`;
+    } else if (answers.shape === 'Square') {
+        const shape = new Square();
+        shape.setColor(answers.shapeColor);
+        return `<svg height="200" width="300">
+        ${shape.render()}
+        <text x="33%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="50" fill="${answers.color}">${answers.text}</text>
+        </svg>`;
+    };
 }
 
 //function to initialize program
